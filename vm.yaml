@@ -1,0 +1,152 @@
+apiVersion: 'kubevirt.io/v1'
+kind: 'VirtualMachine'
+metadata:
+  annotations:
+    kubemacpool.io/transaction-timestamp: '2025-06-18T15:46:15.94146291Z'
+    vm.kubevirt.io/validations: "[\n  {\n    \"name\": \"minimal-required-memory\",\n    \"path\": \"jsonpath::.spec.domain.memory.guest\",\n    \"rule\": \"integer\",\n    \"message\": \"This VM requires more memory.\",\n    \"min\": 2147483648\n  }\n]\n"
+  labels:
+    app: 'fedora-tan-dolphin-68'
+    kubevirt.io/dynamic-credentials-support: 'true'
+    vm.kubevirt.io/template: 'fedora-server-small'
+    vm.kubevirt.io/template.namespace: 'openshift'
+    vm.kubevirt.io/template.revision: '1'
+    vm.kubevirt.io/template.version: 'v0.32.2'
+  managedFields:
+    - apiVersion: 'kubevirt.io/v1'
+      fieldsType: 'FieldsV1'
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            .: {}
+            f:vm.kubevirt.io/validations: {}
+          f:labels:
+            .: {}
+            f:app: {}
+            f:kubevirt.io/dynamic-credentials-support: {}
+            f:vm.kubevirt.io/template: {}
+            f:vm.kubevirt.io/template.namespace: {}
+            f:vm.kubevirt.io/template.revision: {}
+            f:vm.kubevirt.io/template.version: {}
+        f:spec:
+          .: {}
+          f:dataVolumeTemplates: {}
+          f:runStrategy: {}
+          f:template:
+            .: {}
+            f:metadata:
+              .: {}
+              f:annotations:
+                .: {}
+                f:vm.kubevirt.io/flavor: {}
+                f:vm.kubevirt.io/os: {}
+                f:vm.kubevirt.io/workload: {}
+              f:labels:
+                .: {}
+                f:kubevirt.io/domain: {}
+                f:kubevirt.io/size: {}
+            f:spec:
+              .: {}
+              f:architecture: {}
+              f:domain:
+                .: {}
+                f:cpu:
+                  .: {}
+                  f:cores: {}
+                  f:sockets: {}
+                  f:threads: {}
+                f:devices:
+                  .: {}
+                  f:disks: {}
+                  f:interfaces: {}
+                  f:rng: {}
+                f:features:
+                  .: {}
+                  f:smm:
+                    .: {}
+                    f:enabled: {}
+                f:firmware:
+                  .: {}
+                  f:bootloader:
+                    .: {}
+                    f:efi: {}
+                f:memory:
+                  .: {}
+                  f:guest: {}
+              f:networks: {}
+              f:terminationGracePeriodSeconds: {}
+              f:volumes: {}
+      manager: 'kubectl-create'
+      operation: 'Update'
+      time: '2025-06-18T15:46:15Z'
+  name: 'fedora-tan-dolphin-68'
+  namespace: 'vm1'
+spec:
+  dataVolumeTemplates:
+    - apiVersion: 'cdi.kubevirt.io/v1beta1'
+      kind: 'DataVolume'
+      metadata:
+        creationTimestamp: null
+        name: 'fedora-tan-dolphin-68'
+      spec:
+        source:
+          http:
+            url: 'https://download.fedoraproject.org/pub/fedora/linux/releases/40/Cloud/x86_64/images/Fedora-Cloud-Base-Generic.x86_64-40-1.14.qcow2'
+        storage:
+          resources:
+            requests:
+              storage: '30Gi'
+  runStrategy: 'RerunOnFailure'
+  template:
+    metadata:
+      annotations:
+        vm.kubevirt.io/flavor: 'small'
+        vm.kubevirt.io/os: 'fedora'
+        vm.kubevirt.io/workload: 'server'
+      creationTimestamp: null
+      labels:
+        kubevirt.io/domain: 'fedora-tan-dolphin-68'
+        kubevirt.io/size: 'small'
+    spec:
+      architecture: 'amd64'
+      domain:
+        cpu:
+          cores: 1
+          sockets: 1
+          threads: 1
+        devices:
+          disks:
+            - disk:
+                bus: 'virtio'
+              name: 'rootdisk'
+            - disk:
+                bus: 'virtio'
+              name: 'cloudinitdisk'
+          interfaces:
+            - macAddress: '02:75:a0:00:00:06'
+              masquerade: {}
+              model: 'virtio'
+              name: 'default'
+          rng: {}
+        features:
+          acpi: {}
+          smm:
+            enabled: true
+        firmware:
+          bootloader:
+            efi: {}
+        machine:
+          type: 'pc-q35-rhel9.4.0'
+        memory:
+          guest: '2Gi'
+        resources: {}
+      networks:
+        - name: 'default'
+          pod: {}
+      terminationGracePeriodSeconds: 180
+      volumes:
+        - dataVolume:
+            name: 'fedora-tan-dolphin-68'
+          name: 'rootdisk'
+        - cloudInitNoCloud:
+            userData: "#cloud-config\nuser: fedora\npassword: 6tgm-4gkq-ye4f\nchpasswd: { expire: False }"
+          name: 'cloudinitdisk'
