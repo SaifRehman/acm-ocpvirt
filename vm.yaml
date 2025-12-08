@@ -7,10 +7,10 @@ metadata:
   labels:
     app: 'fedora-tan-dolphin-68'
     kubevirt.io/dynamic-credentials-support: 'true'
-    vm.kubevirt.io/template: 'fedora-server-small'
-    vm.kubevirt.io/template.namespace: 'openshift'
+    vm.kubevirt.io/template: centos-stream9-server-small
+    vm.kubevirt.io/template.namespace: openshift
     vm.kubevirt.io/template.revision: '1'
-    vm.kubevirt.io/template.version: 'v0.32.2'
+    vm.kubevirt.io/template.version: v0.32.2
   managedFields:
     - apiVersion: 'kubevirt.io/v1'
       fieldsType: 'FieldsV1'
@@ -90,7 +90,7 @@ spec:
       spec:
         source:
           http:
-            url: 'https://download.fedoraproject.org/pub/fedora/linux/releases/40/Cloud/x86_64/images/Fedora-Cloud-Base-Generic.x86_64-40-1.14.qcow2'
+            url: 'https://cloud.centos.org/centos/9-stream/x86_64/images/CentOS-Stream-GenericCloud-9-latest.x86_64.qcow2'
         storage:
           resources:
             requests:
